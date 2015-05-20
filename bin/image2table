@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'image2table'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: image2table [options]"
+
+  opts.on("-i", "--image IMAGE", "IMAGE") do |v|
+    options[:image] = v
+  end
+
+  opts.on("-o", "--output OUTPUT", "HTML name output") do |v|
+    options[:html] = v
+  end
+end.parse!
+
+unless options[:image]
+  puts "Image file needed"
+  @fail = true
+end
+
+unless @fail
+  p options
+  g = Image2table.new
+end
