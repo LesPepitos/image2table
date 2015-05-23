@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["shakaman"]
   spec.email         = ["mbenadon@shakaman.com"]
   spec.summary       = ""
-  spec.description   = ""
-  spec.homepage      = ""
+  spec.description   = "Tool to convert image to table html"
+  spec.homepage      = "https://github.com/shakaman/image2table"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

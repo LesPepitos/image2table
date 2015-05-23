@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
 require 'image2table'
 require 'optparse'
 
@@ -12,7 +11,7 @@ OptionParser.new do |opts|
     options[:image] = v
   end
 
-  opts.on("-o", "--output OUTPUT", "HTML name output") do |v|
+  opts.on("-o", "--output OUTPUT", "HTML output") do |v|
     options[:html] = v
   end
 end.parse!
@@ -23,6 +22,10 @@ unless options[:image]
 end
 
 unless @fail
-  p options
-  g = Image2table.new
+  i = Image2table.new options[:image]
+  if options[:html]
+    i.to_html(options[:html])
+  else
+    puts i.to_table
+  end
 end

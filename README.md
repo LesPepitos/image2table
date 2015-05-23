@@ -1,6 +1,7 @@
 # Image2table
 
-TODO: Write a gem description
+Simple tool to convert image to table html.
+
 
 ## Installation
 
@@ -20,11 +21,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+image2table -i image_path -o html output
+```
+
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/image2table/fork )
+1. Fork it ( https://github.com/shakaman/image2table/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
