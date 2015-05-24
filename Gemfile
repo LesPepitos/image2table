@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+# encoding: utf-8
 
-# Specify your gem's dependencies in image2table.gemspec
+source 'https://rubygems.org'
 gemspec
