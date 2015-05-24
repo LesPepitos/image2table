@@ -1,4 +1,5 @@
-# Image2table
+Image2table [![Circle CI](https://circleci.com/gh/shakaman/image2table/tree/master.svg?style=svg&circle-token=c156e734346160d49e62d8f5241b26e935f9af6d)](https://circleci.com/gh/shakaman/image2table/tree/master)
+===========
 
 Simple tool to convert image to table html.
 
