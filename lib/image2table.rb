@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 $: .unshift(File.dirname(__FILE__))
 
 require 'rmagick'
@@ -6,11 +7,14 @@ require "image2table/version"
 
 class Image2table
 
-  def initialize(image)
+  def initialize
+    @colors = []
+  end
+
+  def add_image(image)
     @image = Magick::Image.read(image).first
     @rows = @image.rows
     @cols = @image.columns
-    @colors = []
   end
 
   def to_table
@@ -31,15 +35,11 @@ class Image2table
   private
 
   def extract_colors
-    for y in (0...@rows)
+    for y in (0...10)
       @colors[y] = []
-      for x in (0...@cols)
+      for x in (0...10)
         color = @image.pixel_color(x, y)
-        hexa = sprintf('%02x%02x%02x', color.red&0xff, color.green&0xff, color.blue&0xff)
-        if hexa[0] == hexa[1] && hexa[2] == hexa[3] && hexa[4] == hexa[5]
-          hexa = "#{hexa[0]}#{hexa[2]}#{hexa[4]}"
-        end
-        @colors[y][x] = "##{hexa}"
+        @colors[y][x] = rgb_to_hexa(color.red, color.green, color.blue)
       end
     end
   end
@@ -59,6 +59,14 @@ class Image2table
       html << "</tr>"
     end
     html << "</table>"
+  end
+
+  def rgb_to_hexa(red, green, blue)
+    hexa = sprintf('%02x%02x%02x', red&0xff, green&0xff, blue&0xff)
+    if hexa[0] == hexa[1] && hexa[2] == hexa[3] && hexa[4] == hexa[5]
+      hexa = "#{hexa[0]}#{hexa[2]}#{hexa[4]}"
+    end
+    "##{hexa}"
   end
 
   def most_common_color

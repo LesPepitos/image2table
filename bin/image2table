@@ -22,7 +22,8 @@ unless options[:image]
 end
 
 unless @fail
-  i = Image2table.new options[:image]
+  i = Image2table.new
+  i.add_image options[:image]
   if options[:html]
     i.to_html(options[:html])
   else
