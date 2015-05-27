@@ -6,7 +6,6 @@ require 'rmagick'
 require "image2table/version"
 
 class Image2table
-
   def initialize
     @colors = []
   end
@@ -31,13 +30,12 @@ class Image2table
     end
   end
 
-
   private
 
   def extract_colors
-    for y in (0...10)
+    10.times do |y|
       @colors[y] = []
-      for x in (0...10)
+      10.times do |x|
         color = @image.pixel_color(x, y)
         @colors[y][x] = rgb_to_hexa(color.red, color.green, color.blue)
       end
@@ -47,7 +45,7 @@ class Image2table
   def generate_table
     bgcolor = most_common_color
     html = "<table height='#{@rows}' width='#{@cols}' bgcolor='#{bgcolor}' style='border-collapse:collapse;border-spacing:0'>"
-    for y in (0...@rows)
+    @rows.times do |y|
       html << "<tr>"
       cells = calulate_colspan(@colors[y])
       cells.each do |cell|
