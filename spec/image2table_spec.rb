@@ -14,10 +14,9 @@ describe Image2table do
 
   describe 'add image' do
     it 'should initialize rows and cols' do
-      image = Image2table.new
-      image.add_image('./examples/example.jpg')
-      expect(image.instance_variable_get(:@cols)).to eq(100)
-      expect(image.instance_variable_get(:@rows)).to eq(100)
+      image = Image2table.new.add_image('./examples/example.jpg')
+      expect(image.cols).to eq(100)
+      expect(image.rows).to eq(100)
     end
   end
 

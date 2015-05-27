@@ -1,53 +1,56 @@
-# encoding: utf-8
-
-$: .unshift(File.dirname(__FILE__))
-
-require 'rmagick'
-require "image2table/version"
+require "rmagick"
+require_relative "image2table/version"
 
 class Image2table
+  attr_reader :colors, :image, :rows, :cols
+
+  STYLE = '<style>*{border:0;margin:0;padding:0;}td{width:1;height:1;}</style>'.freeze
+
   def initialize
     @colors = []
   end
 
-  def add_image(image)
-    @image = Magick::Image.read(image).first
-    @rows = @image.rows
-    @cols = @image.columns
+  # @return [Image2table]
+  def add_image(path)
+    @image = Magick::Image.read(path).first
+    @rows = image.rows
+    @cols = image.columns
+    self
   end
 
+  # @return [String]
   def to_table
     extract_colors
     generate_table
   end
 
+  # @return [String]
   def to_html(output='image.html')
     extract_colors
-    html = "<style>*{border:0;margin:0;padding:0;}td{width:1;height:1;}</style>"
-    html << generate_table
     File.open(output, 'w') do |f|
-      f.puts html
+      f << STYLE
+      f << generate_table
     end
   end
 
   private
 
   def extract_colors
-    10.times do |y|
-      @colors[y] = []
-      10.times do |x|
-        color = @image.pixel_color(x, y)
-        @colors[y][x] = rgb_to_hexa(color.red, color.green, color.blue)
+    rows.times do |y|
+      colors[y] = []
+      cols.times do |x|
+        color = image.pixel_color(x, y)
+        colors[y][x] = rgb_to_hexa(color.red, color.green, color.blue)
       end
     end
   end
 
   def generate_table
     bgcolor = most_common_color
-    html = "<table height='#{@rows}' width='#{@cols}' bgcolor='#{bgcolor}' style='border-collapse:collapse;border-spacing:0'>"
-    @rows.times do |y|
+    html = "<table height='#{rows}' width='#{cols}' bgcolor='#{bgcolor}' style='border-collapse:collapse;border-spacing:0'>"
+    rows.times do |y|
       html << "<tr>"
-      cells = calulate_colspan(@colors[y])
+      cells = calulate_colspan(colors[y])
       cells.each do |cell|
         html << "<td"
         html << " bgcolor='#{cell[:color]}'" if cell[:color] != bgcolor
@@ -68,13 +71,12 @@ class Image2table
   end
 
   def most_common_color
-    colors = @colors.flatten
-    colors.group_by(&:itself).values.max_by(&:size).first
+    colors.flatten.group_by(&:itself).values.max_by(&:size).first
   end
 
-  def calulate_colspan(colors)
+  def calulate_colspan(color_rows)
     cells = []
-    colors.each_with_index do |color, index|
+    color_rows.each_with_index do |color, index|
       previous_cell = cells.last
       if index > 0 && color == previous_cell[:color]
         previous_cell[:repeat] += 1
