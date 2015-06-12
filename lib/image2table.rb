@@ -44,8 +44,9 @@ class Image2table
       colors[y] = []
       cols.times do |x|
         color = image.pixel_color(x, y)
-        colors[y][x] = if color.to_hsla.last < 1
-                         hsla_to_rgba(color.to_hsla)
+        hsla = color.to_hsla
+        colors[y][x] = if hsla.last < 1
+                         hsla_to_rgba(hsla)
                        else
                          rgb_to_hexa(color.red, color.green, color.blue)
                        end
