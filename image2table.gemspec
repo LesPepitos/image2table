@@ -7,11 +7,11 @@ require 'image2table/version'
 Gem::Specification.new do |spec|
   spec.name          = "image2table"
   spec.version       = Image2table::VERSION
-  spec.authors       = ["shakaman"]
-  spec.email         = ["mbenadon@shakaman.com"]
+  spec.authors       = ["LesPepitos"]
+  spec.email         = ["shakaman@lespepitos.org"]
   spec.summary       = ""
   spec.description   = "Tool to convert image to table html"
-  spec.homepage      = "https://github.com/shakaman/image2table"
+  spec.homepage      = "https://github.com/LesPepitos/image2table"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

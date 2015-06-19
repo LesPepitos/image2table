@@ -30,7 +30,7 @@ image2table -i image_path -o html output
 
 ## Contributing
 
-1. Fork it ( https://github.com/shakaman/image2table/fork )
+1. Fork it ( https://github.com/LesPepitos/image2table/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
